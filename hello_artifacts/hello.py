@@ -1,9 +1,11 @@
-import os
-import numpy as np
 from argparse import ArgumentParser
-import requests
-import torch
 from torch.utils.tensorboard import SummaryWriter
+from tqdm import tqdm
+import numpy as np
+import os
+import requests
+import time
+import torch
 
 # add arguments 
 parser = ArgumentParser()
@@ -40,29 +42,36 @@ print('i can run any ML library like numpy, pytorch lightning, sklearn pytorch, 
 print('torch:', torch.rand(1), 'numpy', np.random.rand(1))
 
 # write some artifacts
-with open("weights.pt", "a") as f:
+with open("weights.pt", "w") as f:
     f.write("fake weights")
 
 # write folders of artifacts
 
+images = [
+    'https://cdn.pixabay.com/photo/2014/02/27/16/10/tree-276014__340.jpg',
+    'https://cdn.pixabay.com/photo/2020/10/03/17/30/bridge-5624104_1280.jpg',
+    'https://i.imgur.com/ExdKOOz.png',
+]
+
+images_data = [
+    requests.get(x).content for x in images
+]
+
+
 for name in ['inputs', 'outputs']:
-    for i in range(1, args.num_folders):
+    for i in tqdm(range(1, args.num_folders), desc="making inputs/outputs folder"):
         root = f'{name}/folder_{i}'
         os.makedirs(root, exist_ok=True)
 
-        img_1 = 'https://cdn.pixabay.com/photo/2014/02/27/16/10/tree-276014__340.jpg'
-        img_2 = 'https://cdn.pixabay.com/photo/2020/10/03/17/30/bridge-5624104_1280.jpg'
-        img_3 = 'https://i.imgur.com/ExdKOOz.png'
         
-        for idx, img in enumerate([img_1, img_2, img_3]):
-            response = requests.get(img)
+        for idx, image in enumerate(images_data):
             path = os.path.join(root, f'img_{idx}.jpg')
-            file = open(path, 'wb')
-            file.write(response.content)
-            file.close()
+            with open (path, 'wb') as file:
+                file.write(image)
+        time.sleep(1)
 
 # make random text file
-for i in range(1, args.num_csv_files):
-    f = open(f"demofile_{i}.csv", "a")
-    f.write("col a, col b, col c\n1, 2, 3\n 3, 4, 5")
-    f.close()
+for i in tqdm(range(1, args.num_csv_files), desc="create csv files"):
+    with open(f"demofile_{i}.csv", "w") as f:
+        f.write("col a, col b, col c\n1, 2, 3\n 3, 4, 5")
+    time.sleep(1)
