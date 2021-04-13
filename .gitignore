@@ -134,3 +134,8 @@ dmypy.json
 # Data files
 MNIST/
 venv
+demofile_*
+weights.pt
+inputs
+outputs
+runs
