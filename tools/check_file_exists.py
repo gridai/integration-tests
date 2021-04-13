@@ -3,5 +3,6 @@
 import sys, os
 
 if __name__ == '__main__':
-    os.stat(sys.argv[1])
-    print("file exists")
+    with open(sys.argv[1], "r") as f:
+        for line in f.readlines():
+            print(line.rstrip(), flush=True)
