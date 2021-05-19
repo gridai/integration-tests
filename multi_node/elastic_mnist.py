@@ -18,6 +18,8 @@ from torchvision import transforms
 from torch.utils.data import DataLoader
 from torchvision.datasets import MNIST
 
+from torch.nn import functional as F
+
 from pytorch_lightning import Trainer, LightningModule
 
 
