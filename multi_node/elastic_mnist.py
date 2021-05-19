@@ -18,10 +18,10 @@ from torchvision import transforms
 from torch.utils.data import DataLoader
 from torchvision.datasets import MNIST
 
-from pytorch_lightning import Trainer
+from pytorch_lightning import Trainer, LightningModule
 
 
-class MNISTModel(pl.LightningModule):
+class MNISTModel(LightningModule):
     def __init__(self, num_hidden_layers = 1, learning_rate = 0.09):
         super().__init__()
         self.learning_rate = learning_rate
