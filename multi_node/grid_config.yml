@@ -1,0 +1,20 @@
+compute:
+    provider:
+        vendor: aws
+        credentials: cc-ltf46
+        region: us-east-1
+    train:
+        framework: torchelastic
+        distributed: true
+        datastore_name: null
+        datastore_version: null
+        datastore_mount_dir: null
+        instance: g4dn.xlarge
+        use_spot: false
+        nodes: 0
+        gpus: 2
+        disk_size: 200
+        cpus: 1
+	actions:
+	    on_image_build:
+	    -  pip install torchvision==0.8.2        
