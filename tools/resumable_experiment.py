@@ -1,12 +1,17 @@
 #!/usr/bin/env python
 #
-# This is resumable experiment which runs for 2h and saves it's state
-# to a file
+# This is resumable experiment which runs for default of 2h
+# it saves it's state to a file
 
+from argparse import ArgumentParser
 import signal
 import sys
 import os
 import time
+
+parser = ArgumentParser()
+parser.add_argument('--iterations', default=2*3600, type=int)
+args = parser.parse_args()
 
 checkpoint_file = "chkpt.txt"
 
@@ -27,7 +32,8 @@ try:
 except FileNotFoundError:
     start = 0
 
-for i in range(start, 2 * 3600):
+# Generate a log and an artifact each iteration
+for i in range(start, args.iterations):
     start = i
     print(f"hello world {i}", flush=True)
     with open(f"artifacts-{i}.txt", "w") as f:
