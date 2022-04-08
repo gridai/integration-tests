@@ -32,6 +32,13 @@ try:
 except FileNotFoundError:
     start = 0
 
+# If we restarted, modify an existing artifact
+# (used in s3 syncing test)
+if start > 0:
+    os.rename(f"artifacts-{start-1}.txt", f"overriden-artifacts-{start-1}.txt")
+    with open(f"overriden-artifacts-{start-1}.txt", 'w') as f:
+        print("smaller byte size!", file=f)
+
 # Generate a log and an artifact each iteration
 for i in range(start, args.iterations):
     start = i
