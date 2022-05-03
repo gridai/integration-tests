@@ -16,12 +16,13 @@ start = 0
 for i in range(args.num_iterations):
     print(f"writing batch {i} of {args.num_iterations}")
 
+    content = str(i%10)*gb_bytes
     for artifact_num in range(start, args.num_artifacts):
         name = os.path.join(args.out_dir, f"artifact-{artifact_num}.txt")
         with open(name, 'w') as f:
             for gb in range(args.num_gb):
                 print(f"writing {gb}/{args.num_gb} for {name}")
-                f.write(str(i%10)*gb_bytes)
+                f.write(content)
         print(f"done with {name}")
 
 print("done")
