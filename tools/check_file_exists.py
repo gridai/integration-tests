@@ -14,7 +14,7 @@ def list_files(startpath):
 
 if __name__ == '__main__':
     print(f'sys.argv={sys.argv}')
-    list_files(sys.argv[2])
+    list_files('/datastores/')
     try:
         print(f"trying opening in read+text mode")
         with open(sys.argv[2], "r") as f:
