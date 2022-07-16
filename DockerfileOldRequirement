@@ -1,0 +1,6 @@
+FROM public.ecr.aws/grid-public/dlcudarequirements:py3.9-torch1.10
+
+WORKDIR '/gridai/project'
+
+COPY . /gridai/project/
+RUN pip install --no-cache-dir -r requirements.txt
