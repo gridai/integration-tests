@@ -1,5 +1,5 @@
 FROM public.ecr.aws/grid-public/dlcudarequirements:py3.9-torch1.10
-ENV NVIDIA_REQUIRE_CUDA "cuda<=11.4 brand=tesla,driver>=418,driver<419"
+ENV NVIDIA_REQUIRE_CUDA "cuda<11.4 brand=unknown,driver>=418,driver<419"
 WORKDIR '/gridai/project'
 
 COPY . /gridai/project/
